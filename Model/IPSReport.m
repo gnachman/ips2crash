@@ -113,9 +113,10 @@
     return [self initWithString:tString error:outError];
 }
 
-- (instancetype)initWithString:(NSString *)inString error:(out NSError **)outError;
+- (instancetype)initWithString:(NSString *)originalString error:(out NSError **)outError;
 {
-    if ([inString isKindOfClass:[NSString class]]==NO)
+    const NSRange suffixRange = [originalString rangeOfString:@"~~ Error Logs ~~"];
+    if ([originalString isKindOfClass:[NSString class]]==NO)
     {
         if (outError!=NULL)
             *outError=[NSError errorWithDomain:NSPOSIXErrorDomain code:EINVAL userInfo:nil];
@@ -127,44 +128,57 @@
     
     if (self!=nil)
     {
-        NSError * tError=nil;
-        
-        NSRange tRange=[inString lineRangeForRange:NSMakeRange(0,1)];
-        
-        if (tRange.location==NSNotFound)
-        {
-            if (outError!=NULL)
-                *outError=[NSError errorWithDomain:IPSErrorDomain
-                                              code:IPSSummaryReadCorruptError
-                                          userInfo:@{}];
-            
-            return nil;
+        NSString *inString;
+        if (suffixRange.location == NSNotFound) {
+            inString = originalString;
+        } else {
+            inString = [originalString substringToIndex:suffixRange.location];
+            _errorLogs = [originalString substringFromIndex:NSMaxRange(suffixRange)];
         }
-        
-        // Summary
-        
-        NSString * tFirstLine=[inString substringWithRange:tRange];
 
-        if (tFirstLine==nil)
-        {
+        NSError * tError=nil;
+
+        NSInteger startOffset = 0;
+        NSRange tRange;
+        while (startOffset < inString.length && _summary == nil) {
+            tRange=[inString lineRangeForRange:NSMakeRange(startOffset,1)];
+
+            if (tRange.location==NSNotFound)
+            {
+                if (outError!=NULL)
+                    *outError=[NSError errorWithDomain:IPSErrorDomain
+                                                  code:IPSSummaryReadCorruptError
+                                              userInfo:@{}];
+
+                return nil;
+            }
+
+            // Summary
+
+            NSString * tFirstLine=[inString substringWithRange:tRange];
+
+            if (tFirstLine==nil)
+            {
+                if (outError!=NULL)
+                    *outError=[NSError errorWithDomain:IPSErrorDomain
+                                                  code:IPSSummaryReadCorruptError
+                                              userInfo:@{}];
+
+                return nil;
+            }
+
+            _summary=[IPSSummarySerialization summaryWithData:[tFirstLine dataUsingEncoding:NSUTF8StringEncoding] error:&tError];
+            startOffset = NSMaxRange(tRange);
+        }
+
+        if (startOffset >= inString.length) {
             if (outError!=NULL)
                 *outError=[NSError errorWithDomain:IPSErrorDomain
                                               code:IPSSummaryReadCorruptError
                                           userInfo:@{}];
-            
+
             return nil;
         }
-        
-        _summary=[IPSSummarySerialization summaryWithData:[tFirstLine dataUsingEncoding:NSUTF8StringEncoding] error:&tError];
-        
-        if (_summary==nil)
-        {
-            if (outError!=NULL)
-                *outError=tError;
-            
-            return nil;
-        }
-        
         if (_summary.bugType!=IPSBugTypeCrash)
         {
             if (outError!=NULL)

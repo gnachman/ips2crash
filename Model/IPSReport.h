@@ -22,6 +22,7 @@
     @property (readonly) IPSSummary * summary;
 
     @property (readonly) IPSIncident * incident;
+@property (readonly) NSString *errorLogs;
 
 - (instancetype)initWithSummary:(IPSSummary *)inSummary incident:(IPSIncident *)inIncident;
 

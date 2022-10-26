@@ -211,7 +211,7 @@ int main(int argc, const char * argv[])
         if (tOutputCrashFile==nil)
         {
             (void)fprintf(stdout,"%s",tString.UTF8String);
-            
+            fprintf(stdout, "%s", tReport.errorLogs.UTF8String);
             return EXIT_SUCCESS;
         }
         

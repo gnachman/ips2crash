@@ -27,8 +27,6 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <Testables>
-      </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -38,8 +36,8 @@
             ReferencedContainer = "container:ips2crash.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
+      <Testables>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -68,7 +66,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-O"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "&quot;/Users/stephane/Documents/IPS files/Morph Age-2021-11-17-094158.ips&quot;"
@@ -76,6 +74,10 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "&quot;/Users/stephane/Documents/IPS files/Xcode-2021-11-18-163236.ips&quot;"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/gnachman/Dropbox/Apps/CrashLogs/sorted-crashes/3.5.0beta7/1665675734.1046621340.txt"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
@@ -87,8 +89,6 @@
             isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
