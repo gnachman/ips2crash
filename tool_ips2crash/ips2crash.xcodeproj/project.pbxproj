@@ -530,6 +530,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F43B88C5271F44F10052D655 /* SharedConfigurationSettings.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -538,6 +539,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F43B88C5271F44F10052D655 /* SharedConfigurationSettings.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

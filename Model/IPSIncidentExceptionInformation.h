@@ -33,4 +33,6 @@
 
     @property (readonly,getter=isCorpse) BOOL corpse;
 
+    @property (readonly) NSArray<NSString *> *asiBacktraces;
+
 @end

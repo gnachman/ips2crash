@@ -78,6 +78,10 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/gnachman/Dropbox/Apps/CrashLogs/sorted-crashes/3.5.0beta7/1665675734.1046621340.txt"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "&quot;/Users/gnachman/Downloads/iTerm2-2023-03-22-100931.ips&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

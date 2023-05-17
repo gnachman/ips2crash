@@ -18,6 +18,8 @@ NSString * const IPSIncidentExceptionInformationFaultingThreadKey=@"faultingThre
 
 NSString * const IPSIncidentExceptionInformationLegacyInfoKey=@"legacyInfo";
 
+NSString * const IPSIncidentExceptionInformationASIBacktracesKey = @"asiBacktraces";
+
 NSString * const IPSIncidentExceptionInformationExceptionKey=@"exception";
 
 NSString * const IPSIncidentExceptionInformationTerminationKey=@"termination";
@@ -37,6 +39,8 @@ NSString * const IPSIncidentExceptionInformationCorpseOldKey=@"is_corpse";
     @property (readwrite) IPSTermination * termination;
 
     @property (readwrite,getter=isCorpse) BOOL corpse;
+
+    @property (readwrite, copy) NSArray<NSString *> *asiBacktraces;
 
 @end
 
@@ -120,7 +124,8 @@ NSString * const IPSIncidentExceptionInformationCorpseOldKey=@"is_corpse";
                 return nil;
             }
         }
-        
+
+        _asiBacktraces = inRepresentation[IPSIncidentExceptionInformationASIBacktracesKey];
         tDictionary=inRepresentation[IPSIncidentExceptionInformationLegacyInfoKey];
         
         tError=nil;

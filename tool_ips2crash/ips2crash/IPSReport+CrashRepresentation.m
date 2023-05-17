@@ -187,7 +187,7 @@
     IPSIncidentExceptionInformation * tExceptionInformation=tIncident.exceptionInformation;
     
     [tMutableString appendFormat:@"Crashed Thread:        %lu",(unsigned long)tExceptionInformation.faultingThread];
-    
+
     IPSLegacyInfo * tLegacyInfo=tExceptionInformation.legacyInfo;
     
     if (tLegacyInfo!=nil && tLegacyInfo.threadTriggered.queue!=nil)
@@ -218,7 +218,15 @@
     
     if (tExceptionInformation.isCorpse==YES)
         [tMutableString appendString:@"Exception Note:        EXC_CORPSE_NOTIFY\n"];
-    
+
+    if (tExceptionInformation.asiBacktraces) {
+        [tMutableString appendString:@"\nApp-Specific Backtraces:\n\n"];
+        for (NSString *trace in tExceptionInformation.asiBacktraces) {
+            [tMutableString appendString:trace];
+            [tMutableString appendString:@"\n"];
+        }
+    }
+
     [tMutableString appendString:@"\n"];
     
     IPSTermination * tTermination=tExceptionInformation.termination;
