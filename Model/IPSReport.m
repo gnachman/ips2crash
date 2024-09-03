@@ -208,6 +208,10 @@
             return nil;
         }
         
+        const NSRange lastCloseBrace = [tIncidentString rangeOfString:@"\n}\n" options:NSBackwardsSearch];
+        if (lastCloseBrace.location != NSNotFound) {
+            tIncidentString = [tIncidentString substringWithRange:NSMakeRange(0, NSMaxRange(lastCloseBrace))];
+        }
         NSData * tIncidentData=[tIncidentString dataUsingEncoding:NSUTF8StringEncoding];
         
         tError=nil;
